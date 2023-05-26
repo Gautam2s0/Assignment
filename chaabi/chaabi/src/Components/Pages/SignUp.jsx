@@ -20,6 +20,7 @@ export const SignUp = () => {
 
   const handleClick = () => {
     let data = {
+      name,
       email,
       password,
     };

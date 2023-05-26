@@ -7,6 +7,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Spinner } from "./Spinner";
 import styles from "../Styles/Login.css"
+import { UserLoginFailed, UserLoginLoading, UserLoginSuccess } from "../Redux/UserAuth/action";
 
 
 export const Login = () => {
@@ -21,36 +22,36 @@ export const Login = () => {
       email,
       password,
     };
-    // if (email && password) {
-    //   dispatch(LoginLoading());
-    //   axios
-    //     .post(`${process.env.REACT_APP_PORT}/login`, data) 
-    //     .then((res) => {
-    //       dispatch(LoginSuccess(res.data));
-    //       console.log(res);
-    //       if (res.data.msg == "Login Successfull") {
-    //         localStorage.setItem("token",JSON.stringify(res.data.token))
-    //         toast.success(res.data.msg, {
-    //           position: "top-center",
-    //           theme: "colored",
-    //         });
-    //         navigate('/blog')
-    //       } else {
-    //         toast.error(res.data.msg, {
-    //           position: "top-center",
-    //           theme: "colored",
-    //         });
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       dispatch(LoginFailed(err));
-    //     });
-    // } else {
-    //   toast.error("Please fill all credentials", {
-    //     position: "top-center",
-    //     theme: "colored",
-    //   });
-    // }
+    if (email && password) {
+      dispatch(UserLoginLoading());
+      axios
+        .post(`${process.env.REACT_APP_PORT}/auth/login`, data) 
+        .then((res) => {
+          dispatch(UserLoginSuccess(res.data));
+          console.log(res);
+          if (res.data.msg == "Login Successfull") {
+            localStorage.setItem("token",JSON.stringify(res.data.token))
+            toast.success(res.data.msg, {
+              position: "top-center",
+              theme: "colored",
+            });
+            navigate('/blog')
+          } else {
+            toast.error(res.data.msg, {
+              position: "top-center",
+              theme: "colored",
+            });
+          }
+        })
+        .catch((err) => {
+          dispatch(UserLoginFailed(err));
+        });
+    } else {
+      toast.error("Please fill all credentials", {
+        position: "top-center",
+        theme: "colored",
+      });
+    }
 
 
 
