@@ -9,6 +9,7 @@
     width: 30%;
     margin: auto;
     padding-top: 5%;
+    
 }
 
 #userInnerDiv img{
@@ -25,6 +26,7 @@
     align-items: center;
     gap: 2%;
     margin-left: 20%;
+    /* border: 1px solid red; */
    
 }
 .info strong{
@@ -36,7 +38,7 @@
     text-shadow:2px  #e30696;
 }
 #btn{
-    
+    margin-right: 15%;
     background: #333;
     color: #fff;
     padding:2% 5%;
