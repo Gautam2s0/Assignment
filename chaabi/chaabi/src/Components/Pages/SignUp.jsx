@@ -9,7 +9,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Spinner } from "./Spinner";
 import styles from "../Styles/Login.css"
 import {UserRegitrationLoading,UserRegitrationSuccess,UserRegitrationFailed} from "../Redux/UserAuth/action"
-
+   
 export const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

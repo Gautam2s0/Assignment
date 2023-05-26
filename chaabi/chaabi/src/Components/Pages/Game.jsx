@@ -102,6 +102,7 @@ export const Game=()=> {
 
 
   return (
+
     <div className="App">
       <div className="section">
         <div className="is-size-1 has-text-centered has-text-primary">
@@ -161,6 +162,9 @@ export const Game=()=> {
 
     </div>
   );
+
+    
+
 }
 
 
