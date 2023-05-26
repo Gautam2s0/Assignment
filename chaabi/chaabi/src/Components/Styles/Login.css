@@ -1,0 +1,77 @@
+#mainLogin{
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+    margin: auto;
+    gap: 2%;
+    /* border: 1px solid red; */
+    box-sizing: border-box;
+    background: #333;
+    color: #fff;
+    height: 94vh;
+
+}
+#mainLogin h1{
+    font-family: cursive;
+    margin-top: 5%;
+}
+#inputDiv{
+    width: 30%;
+    margin: auto;
+    display: grid;
+    box-sizing: border-box;
+    grid-template-columns: repeat(1,1fr);
+    grid-template-rows: auto;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    /* border: 5px solid green; */
+    margin-top: -.3%;
+    border-radius: 2px solid gray;
+
+    
+}
+#inputDiv input{
+    padding: 2.5% 1%;
+    border-radius: 5px;
+    width: 100%;
+
+   
+}
+#inputDiv button{
+    width: 103%;
+    padding: 3% 0%;
+    margin: auto;
+    background: blue;
+    color: #ffff;
+    font-family: cursive;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.2rem;
+}
+#foot{
+    width: 100%;
+    margin: auto;
+    display: flex;
+    /* margin-top: -20%; */
+    justify-content: center;
+    align-items: center;
+    gap: 2%;
+}
+/* hover */
+#inputDiv button:hover{
+    background: #333;
+    color: #fff;
+    
+   
+}
+/*  meadia query */
+
+
+
+@media screen and (max-width: 620px) {
+    #inputDiv{
+        width: 60%;
+    }
+    
+  }

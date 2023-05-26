@@ -1,0 +1,36 @@
+#navbar{
+    background: #002;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 5%;
+    font-size: 1.2em;
+    height: 6vh;
+    font-weight: 600;
+    font-family:'Courier New', Courier, monospace;
+}
+#navbar a{
+    color: rgb(207, 245, 245);
+    text-decoration: none;
+    cursor: pointer;
+    
+
+}
+#navbar a:last-child{
+    margin-right: 5%;
+}
+#navbar a:hover{
+    color: aqua;
+}
+
+@media screen and (max-width: 480px) {
+    #navbar {
+      background-color: lightgreen;
+      
+      font-size: 1rem;
+      
+    }
+    #navbar a{
+        color: #002;
+    }
+  }
