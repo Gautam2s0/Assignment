@@ -5,5 +5,5 @@ export const Spinner = () => {
     <div id="spinner">
         <div id="inner"> </div>
     </div> 
-  )
+  ) 
 }
