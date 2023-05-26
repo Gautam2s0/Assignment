@@ -2,6 +2,7 @@ import {
     USER_LOGIN_LOADING,
     USER_LOGIN_SUCCESS,
     USER_LOGIN_FAILED,
+    USER_LOG_OUT
   } from "./actionTypes";
   
   const initialState = {
@@ -31,6 +32,13 @@ import {
           ...state,
           isError: true,
         };
+        case USER_LOG_OUT:
+          return{
+            ...state,
+            isLoading:false,
+            isError:false,
+            user:{}
+          }
       default:
           return state
     }

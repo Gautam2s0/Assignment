@@ -5,13 +5,10 @@ import { Navbar } from './Components/Routers/Navbar';
 import { useState } from 'react';
 
 function App() {
-  const [change,setChange]=useState(false)
-  const handleChnage=()=>{
-    setChange(!change)
-  }
+  
   return (
     <div className="App">
-      <Navbar handleChnage={handleChnage}/>
+      <Navbar/>
       <MainRoutes/>
     </div>
   );

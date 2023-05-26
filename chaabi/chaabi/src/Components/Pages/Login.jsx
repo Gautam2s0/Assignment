@@ -32,6 +32,7 @@ export const Login = () => {
           dispatch(UserLoginSuccess(res.data.user));
           if (res.data.msg == "Login Successfull") {
             localStorage.setItem("token",JSON.stringify(res.data.token))
+            localStorage.setItem("user",JSON.stringify(res.data.user))
             toast.success(res.data.msg, {
               position: "top-center",
               theme: "colored",

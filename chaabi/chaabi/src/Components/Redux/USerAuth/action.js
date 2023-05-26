@@ -4,7 +4,8 @@ import {
     USER_REGISTRATION_FAILED,
     USER_LOGIN_LOADING,
     USER_LOGIN_SUCCESS,
-    USER_LOGIN_FAILED
+    USER_LOGIN_FAILED,
+    USER_LOG_OUT
 }from "./actionTypes"
 
 // ************************Registraiton ***********************************************
@@ -52,5 +53,12 @@ export const UserLoginSuccess=(payload)=>{
 export const UserLoginFailed=()=>{
     return {
         type:USER_LOGIN_FAILED
+    }
+}
+
+// logout
+export const UseLogOut=()=>{
+    return {
+        type:USER_LOG_OUT
     }
 }

@@ -1,0 +1,27 @@
+#home{
+   
+    color: #f7f7f7;
+    background: #026ea0;
+    height: 100vh; 
+    box-sizing: border-box;
+}
+#gifImg{
+  padding-top: 5%;
+   box-sizing: border-box;
+    
+}
+#home h1{
+    font-family: cursive;
+    text-decoration: wavy;
+    text-shadow: 5px 5px #cd07fa;
+    font-size:3rem;
+    
+    
+}
+#gif{
+    background: #026ea0;
+    width: 50%;
+    margin: auto;
+    border-radius: 10px;
+   
+}
