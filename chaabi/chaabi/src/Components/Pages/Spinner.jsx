@@ -4,6 +4,6 @@ export const Spinner = () => {
   return (
     <div id="spinner">
         <div id="inner"></div>
-    </div>
+    </div> 
   )
 }
