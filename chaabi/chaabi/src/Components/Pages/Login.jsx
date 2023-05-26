@@ -13,9 +13,11 @@ import { UserLoginFailed, UserLoginLoading, UserLoginSuccess } from "../Redux/Us
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const loading = useSelector((store) => store.AuthReducer.isLoading);
+  const loading = useSelector((store) => store.LoginReducer.isLoading);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [change,setChange]=useState(false)
+  const port=`http://localhost:8080`
 
   const handleClick = () => {
     let data = {
@@ -25,17 +27,19 @@ export const Login = () => {
     if (email && password) {
       dispatch(UserLoginLoading());
       axios
-        .post(`${process.env.REACT_APP_PORT}/auth/login`, data) 
+        .post(`${port}/login`, data) 
         .then((res) => {
-          dispatch(UserLoginSuccess(res.data));
-          console.log(res);
+          dispatch(UserLoginSuccess(res.data.user));
           if (res.data.msg == "Login Successfull") {
             localStorage.setItem("token",JSON.stringify(res.data.token))
             toast.success(res.data.msg, {
               position: "top-center",
               theme: "colored",
             });
-            navigate('/blog')
+            setTimeout(()=>{
+              navigate("/game")
+            },1500)
+            
           } else {
             toast.error(res.data.msg, {
               position: "top-center",
@@ -53,23 +57,11 @@ export const Login = () => {
       });
     }
 
-
-
-    // axios
-    //   .post(`http://localhost:8080/login`, { email, password })
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    // setEmail("");
-    // setPassword("");
-    // console.log(data)
   };
+
   useEffect(() => {
     console.log(email, password);
-  }, []);
+  }, [change]);
 
   return (
     <div id='mainLogin' >
@@ -101,7 +93,7 @@ export const Login = () => {
         id="foot"
       >
         <p>Don't have account</p>
-        <Link to="/signup" style={{ color: "blue", fontWeight: "600" }}>
+        <Link to="/signup" style={{ color: "tomato", fontWeight: "600" }}>
           Signup
         </Link>
       </div>

@@ -1,10 +1,12 @@
 import {combineReducers, legacy_createStore} from "redux"
-import { AuthReducer } from './UserAuth/AuthReducer';
 import { UserInfoReducer } from './UserInfo/UserInfoReducer';
+import { RegisterReducer } from './UserAuth/RegisterReducer';
+import { LoginReducer } from './UserAuth/LoginReducer';
 
 const reducer=combineReducers({
-    AuthReducer,
+    RegisterReducer,
+    LoginReducer,
     UserInfoReducer
 })
 
-export const store=legacy_createStore(reducer)
+export const store=legacy_createStore(reducer) 

@@ -2,58 +2,70 @@
 
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, json, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Spinner } from "./Spinner";
 import styles from "../Styles/Login.css"
-
+import {UserRegitrationLoading,UserRegitrationSuccess,UserRegitrationFailed} from "../Redux/UserAuth/action"
 
 export const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name,setName]=useState("")
-  const loading = useSelector((store) => store.AuthReducer.isLoading);
+  const loading = useSelector((store) => store.RegisterReducer.isLoading);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [img, setImg] = useState("");
+  const url=`http://localhost:8080`
 
   const handleClick = () => {
     let data = {
       name,
       email,
       password,
+      avtar: img,
     };
-    // if (email && password) {
-    //   dispatch(LoginLoading());
-    //   axios
-    //     .post(`${process.env.REACT_APP_PORT}/login`, data) 
-    //     .then((res) => {
-    //       dispatch(LoginSuccess(res.data));
-    //       console.log(res);
-    //       if (res.data.msg == "Login Successfull") {
-    //         localStorage.setItem("token",JSON.stringify(res.data.token))
-    //         toast.success(res.data.msg, {
-    //           position: "top-center",
-    //           theme: "colored",
-    //         });
-    //         navigate('/blog')
-    //       } else {
-    //         toast.error(res.data.msg, {
-    //           position: "top-center",
-    //           theme: "colored",
-    //         });
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       dispatch(LoginFailed(err));
-    //     });
-    // } else {
-    //   toast.error("Please fill all credentials", {
-    //     position: "top-center",
-    //     theme: "colored",
-    //   });
-    // }
+    if (name && email && password && img) {
+      dispatch(UserRegitrationLoading())
+      axios.post(`${url}/register`, data).then((res)=>{
+        dispatch(UserRegitrationSuccess(res.data))
+        if(res.data.msg=="Registration successfull"){
+          toast.success(res.data.msg, {
+            position: "top-center", theme: "colored",
+          }
+          );
+          setTimeout(()=>{
+            navigate("/login")
+          },1500)
+
+        }
+        else{
+          toast.error(res.data.msg, {
+            position: "top-center", theme: "colored",
+          }
+          );
+        }
+      })
+      .catch((err)=>{
+        dispatch(UserRegitrationFailed())
+      })
+      
+    }
+    else {
+
+      toast.error('Please fill all credentials', {
+        position: "top-center", theme: "colored",
+      }
+      );
+    } 
+    // setEmail('');
+    // setName("")
+    // setPassword("")
+    // setImg("")
+    };
+    
 
 
 
@@ -67,11 +79,7 @@ export const SignUp = () => {
     //   });
     // setEmail("");
     // setPassword("");
-    // console.log(data)
-  };
-  useEffect(() => {
-    console.log(email, password);
-  }, []);
+    console.log(process.env.REACT_APP_PORT)
 
   return (
     <div id='mainLogin' >
@@ -95,6 +103,12 @@ export const SignUp = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
+        <input
+            type="url"
+            placeholder="image"
+            value={img}
+            onChange={(e) => setImg(e.target.value)}
+          />
         <button
           disabled={email===""}
           onClick={handleClick}
@@ -109,7 +123,7 @@ export const SignUp = () => {
         id="foot"
       >
         <p>Already have an account</p>
-        <Link to="/login" style={{ color: "blue", fontWeight: "600" }}>
+        <Link to="/login" style={{ color: "tomato", fontWeight: "600" }}>
           login
         </Link>
       </div>
