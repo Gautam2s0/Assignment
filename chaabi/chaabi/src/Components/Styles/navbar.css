@@ -23,7 +23,7 @@
 #navbar a:last-child{
     margin-right: 5%;
 }
-#navbar a:hover{
+#navbar a:hover,#navbar p:hover{
     color: aqua;
 }
 
