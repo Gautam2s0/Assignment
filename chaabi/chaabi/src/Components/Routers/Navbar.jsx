@@ -10,7 +10,12 @@ export const Navbar = () => {
   return (
     <div id="navbar">
         <Link to="/" >Home</Link>
-        <Link to="/game" >Game</Link>
+        <p
+        id="gpl"
+        onClick={()=>{
+          
+          isAuth||token?window.location.href="/game":window.location.href="/login"
+        }} >Game</p>
         {
           isAuth||token?<Link to="/profile" >Profile</Link>:<Link to="/login" >Login</Link>
         }

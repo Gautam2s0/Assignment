@@ -8,6 +8,7 @@ export const UserProfile = () => {
 const dispatch=useDispatch()
 const user=JSON.parse(localStorage.getItem('user'))
 const navigate=useNavigate()
+
 const handleClick=()=>{
   dispatch(UseLogOut())
   localStorage.removeItem("token")
@@ -20,8 +21,6 @@ const handleClick=()=>{
 useEffect(()=>{
 
 },[user])
-const p=useSelector((store)=>store.LoginReducer.user)
-console.log({p})
 
   return (
     <div id="userProfile">

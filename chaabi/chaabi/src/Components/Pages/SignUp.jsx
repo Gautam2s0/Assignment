@@ -18,9 +18,10 @@ export const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [img, setImg] = useState("");
-  const url=`http://localhost:8080`
+  const url=`https://puce-gorgeous-bluefish.cyclic.app`
 
-  const handleClick = () => {
+// click event
+  const handleClick = () => { 
     let data = {
       name,
       email,
@@ -60,27 +61,9 @@ export const SignUp = () => {
       }
       );
     } 
-    // setEmail('');
-    // setName("")
-    // setPassword("")
-    // setImg("")
+
     };
     
-
-
-
-    // axios
-    //   .post(`http://localhost:8080/login`, { email, password })
-    //   .then((res) => {
-    //     console.log(res);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    // setEmail("");
-    // setPassword("");
-    console.log(process.env.REACT_APP_PORT)
-
   return (
     <div id='mainLogin' >
       <h1>Open Your Account </h1>
@@ -128,7 +111,7 @@ export const SignUp = () => {
         </Link>
       </div>
       </div>
-      
+      {/* toast message conatiner */}
       <ToastContainer /> 
     </div>
   );

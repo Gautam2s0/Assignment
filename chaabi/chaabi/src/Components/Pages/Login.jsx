@@ -17,8 +17,9 @@ export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [change,setChange]=useState(false)
-  const port=`http://localhost:8080`
+  const port=`https://puce-gorgeous-bluefish.cyclic.app`
 
+  // click event
   const handleClick = () => {
     let data = {
       email,
@@ -61,7 +62,7 @@ export const Login = () => {
   };
 
   useEffect(() => {
-    console.log(email, password);
+    
   }, [change]);
 
   return (
@@ -85,6 +86,7 @@ export const Login = () => {
           onClick={handleClick}
           
         >
+          {/* loadin indicator */}
           {loading ? (
             <Spinner/>
           ) : (
@@ -100,7 +102,7 @@ export const Login = () => {
         </Link>
       </div>
       </div>
-      
+      {/* toast message container */}
       <ToastContainer />
     </div>
   );

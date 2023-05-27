@@ -27,6 +27,7 @@ export const Game = () => {
     }
   }, [status]);
 
+// Auto word generator
   const generateWords = () => {
     return new Array(NUMB_OF_WORDS < 100 ? 200 : NUMB_OF_WORDS)
       .fill(null)
@@ -60,6 +61,7 @@ export const Game = () => {
     }
   };
 
+// key handle
   const handleKeyDown = ({ keyCode, key }) => {
     // space bar
     if (keyCode === 32) {
@@ -77,6 +79,7 @@ export const Game = () => {
     }
   };
 
+  //  checking letter match
   const checkMatch = () => {
     const wordToCompare = words[currWordIndex];
     const doesItMatch = wordToCompare === currInput.trim();
@@ -87,6 +90,7 @@ export const Game = () => {
     }
   };
 
+  //  getting letter class
   const getCharClass = (wordIdx, charIdx, char) => {
     if (
       wordIdx === currWordIndex &&
@@ -134,9 +138,11 @@ export const Game = () => {
           <div className="card">
             <div className="card-content">
               <div className="content">
+                {/* mapping word */}
                 {words.map((word, i) => (
                   <span key={i}>
                     <span>
+                      {/*  mapping letter */}
                       {word.split("").map((char, idx) => (
                         <span className={getCharClass(i, idx, char)} key={idx}>{char}</span>
                       )) }
@@ -171,7 +177,7 @@ export const Game = () => {
         <div className="section">
           <div id="columns">
             <div className="textCentered">
-              <h2 className="h2">Words per minute:</h2>
+              <h2 className="h2">Words per minute (WPM):</h2>
               <p className="textInfo">{correct}</p>
             </div>
             <div className="textCentered">
