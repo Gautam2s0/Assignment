@@ -11,7 +11,7 @@ export const MainRoutes = () => {
   return (
     <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path='/game' element={<PrivateRoutes><Game/></PrivateRoutes>} />
+        <Route path='/game' element={<Game/>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<SignUp/>}/>
         <Route path='/profile' element={<UserProfile/>}/>

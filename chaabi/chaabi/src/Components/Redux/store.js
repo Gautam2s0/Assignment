@@ -1,7 +1,12 @@
-import {combineReducers, legacy_createStore} from "redux"
+import {applyMiddleware, combineReducers, legacy_createStore} from "redux"
 import { UserInfoReducer } from './UserInfo/UserInfoReducer';
 import { RegisterReducer } from './UserAuth/RegisterReducer';
 import { LoginReducer } from './UserAuth/LoginReducer';
+import createSagaMiddleware from 'redux-saga'
+
+
+
+const sagaMiddleware = createSagaMiddleware()
 
 const reducer=combineReducers({
     RegisterReducer,
@@ -9,4 +14,4 @@ const reducer=combineReducers({
     UserInfoReducer
 })
 
-export const store=legacy_createStore(reducer) 
+export const store=legacy_createStore(reducer,applyMiddleware(sagaMiddleware)) 

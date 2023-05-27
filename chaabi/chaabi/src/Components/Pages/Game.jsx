@@ -1,124 +1,136 @@
-import React, { useEffect, useRef, useState } from 'react'
-import randomWords from 'random-words'
+import React, { useEffect, useRef, useState } from "react";
+import randomWords from "random-words";
+import styles from "../Styles/game.css";
 
-const NUMB_OF_WORDS = 200
-const SECONDS = 60*5
+const NUMB_OF_WORDS = Math.floor(Math.random() * 250);
+const SECONDS = 60*5;
 
-export const Game=()=> {
-  const [words, setWords] = useState([])
-  const [countDown, setCountDown] = useState(SECONDS)
-  const [currInput, setCurrInput] = useState("")
-  const [currWordIndex, setCurrWordIndex] = useState(0)
-  const [currCharIndex, setCurrCharIndex] = useState(-1)
-  const [currChar, setCurrChar] = useState("")
-  const [correct, setCorrect] = useState(0)
-  const [incorrect, setIncorrect] = useState(0)
-  const [status, setStatus] = useState("waiting")
-  const textInput = useRef(null)
-
-  useEffect(() => {
-    setWords(generateWords())
-  }, [])
+export const Game = () => {
+  const [words, setWords] = useState([]);
+  const [countDown, setCountDown] = useState(SECONDS);
+  const [currInput, setCurrInput] = useState("");
+  const [currWordIndex, setCurrWordIndex] = useState(0);
+  const [currCharIndex, setCurrCharIndex] = useState(-1);
+  const [currChar, setCurrChar] = useState("");
+  const [correct, setCorrect] = useState(0);
+  const [incorrect, setIncorrect] = useState(0);
+  const [status, setStatus] = useState("waiting");
+  const textInput = useRef(null);
 
   useEffect(() => {
-    if (status === 'started') {
-      textInput.current.focus()
+    setWords(generateWords());
+  }, []);
+
+  useEffect(() => {
+    if (status === "started") {
+      textInput.current.focus();
     }
-  }, [status])
+  }, [status]);
 
-  function generateWords() {
-    return new Array(NUMB_OF_WORDS).fill(null).map(() => randomWords())
-  }
+  const generateWords = () => {
+    return new Array(NUMB_OF_WORDS < 100 ? 200 : NUMB_OF_WORDS)
+      .fill(null)
+      .map(() => randomWords());
+  };
 
-  function start() {
-
-    if (status === 'finished') {
-      setWords(generateWords())
-      setCurrWordIndex(0)
-      setCorrect(0)
-      setIncorrect(0)
-      setCurrCharIndex(-1)
-      setCurrChar("")
+  const start = () => {
+    if (status === "finished") {
+      setWords(generateWords());
+      setCurrWordIndex(0);
+      setCorrect(0);
+      setIncorrect(0);
+      setCurrCharIndex(-1);
+      setCurrChar("");
     }
 
-    if (status !== 'started') {
-      setStatus('started')
+    if (status !== "started") {
+      setStatus("started");
       let interval = setInterval(() => {
         setCountDown((prevCountdown) => {
           if (prevCountdown === 0) {
-            clearInterval(interval)
-            setStatus('finished')
-            setCurrInput("")
-            return SECONDS
+            clearInterval(interval);
+            setStatus("finished");
+            setCurrInput("");
+            return SECONDS;
           } else {
-            return prevCountdown - 1
+            return prevCountdown - 1;
           }
-        }  )
-      } ,  1000 )
+        });
+      }, 1000);
     }
-    
-  }
+  };
 
-  function handleKeyDown({keyCode, key}) {
-    // space bar 
+  const handleKeyDown = ({ keyCode, key }) => {
+    // space bar
     if (keyCode === 32) {
-      checkMatch()
-      setCurrInput("")
-      setCurrWordIndex(currWordIndex + 1)
-      setCurrCharIndex(-1)
-    // backspace
+      checkMatch();
+      setCurrInput("");
+      setCurrWordIndex(currWordIndex + 1);
+      setCurrCharIndex(-1);
+      // backspace
     } else if (keyCode === 8) {
-      setCurrCharIndex(currCharIndex - 1)
-      setCurrChar("")
+      setCurrCharIndex(currCharIndex - 1);
+      setCurrChar("");
     } else {
-      setCurrCharIndex(currCharIndex + 1)
-      setCurrChar(key)
+      setCurrCharIndex(currCharIndex + 1);
+      setCurrChar(key);
     }
-  }
+  };
 
-  function checkMatch() {
-    const wordToCompare = words[currWordIndex]
-    const doesItMatch = wordToCompare === currInput.trim()
+  const checkMatch = () => {
+    const wordToCompare = words[currWordIndex];
+    const doesItMatch = wordToCompare === currInput.trim();
     if (doesItMatch) {
-      setCorrect(correct + 1)
+      setCorrect(correct + 1);
     } else {
-      setIncorrect(incorrect + 1)
+      setIncorrect(incorrect + 1);
     }
-  }
+  };
 
-  function getCharClass(wordIdx, charIdx, char) {
-    if (wordIdx === currWordIndex && charIdx === currCharIndex && currChar && status !== 'finished') {
+  const getCharClass = (wordIdx, charIdx, char) => {
+    if (
+      wordIdx === currWordIndex &&
+      charIdx === currCharIndex &&
+      currChar &&
+      status !== "finished"
+    ) {
       if (char === currChar) {
-        return 'has-background-success'
+        return "success";
       } else {
-        return 'has-background-danger'
+        return "danger";
       }
-    } else if (wordIdx === currWordIndex && currCharIndex >= words[currWordIndex].length) {
-      return 'has-background-danger'
+    } else if (
+      wordIdx === currWordIndex &&
+      currCharIndex >= words[currWordIndex].length
+    ) {
+      return "danger";
     } else {
-      return ''
+      return "";
     }
-  }
-
+  };
 
   return (
-
-    <div className="App">
+    <div id="ll">
       <div className="section">
-        <div className="is-size-1 has-text-centered has-text-primary">
-          <h2>{countDown}</h2>
+        <div id="timer">
+          <h2>
+            {status === "started"
+              ? "Time left "
+              : status === "waiting"
+              ? "Time"
+              : "Time taken"}
+            :{" "}
+            {countDown % SECONDS !== 0 ? (
+              <span> {countDown} sec</span>
+            ) : (
+              <span> {countDown / 60} min</span>
+            )}
+          </h2>
         </div>
       </div>
-      <div className="control is-expanded section">
-        <input ref={textInput} disabled={status !== "started"} type="text" className="input" onKeyDown={handleKeyDown} value={currInput} onChange={(e) => setCurrInput(e.target.value)}  />
-      </div>
-      <div className="section">
-        <button className="button is-info is-fullwidth" onClick={start}>
-          Start
-        </button>
-      </div>
-      {status === 'started' && (
-        <div className="section" >
+      <div id={status === "started" ? "wordArea" : "wordAreaNot"}>
+        {status === "started" && (
+          <div className="section" >
           <div className="card">
             <div className="card-content">
               <div className="content">
@@ -136,35 +148,45 @@ export const Game=()=> {
             </div>
           </div>
         </div>
-      )}
-      {status === 'finished' && (
+        )}
+      </div>
+      <div id="textArea">
+        <input
+          ref={textInput}
+          disabled={status !== "started"}
+          type="text"
+          id="input"
+          onKeyDown={handleKeyDown}
+          value={currInput}
+          onChange={(e) => setCurrInput(e.target.value)}
+        />
+      </div>
+      <div className="section" id="btnsatr">
+        <button id="StartButton" onClick={start}>
+          Start
+        </button>
+      </div>
+
+      {status === "finished" && (
         <div className="section">
-          <div className="columns">
-            <div className="column has-text-centered">
-              <p className="is-size-5">Words per minute:</p>
-              <p className="has-text-primary is-size-1">
-                {correct}
-              </p>
+          <div id="columns">
+            <div className="textCentered">
+              <h2 className="h2">Words per minute:</h2>
+              <p className="textInfo">{correct}</p>
             </div>
-            <div className="column has-text-centered">
-              <p className="is-size-5">Accuracy:</p>
+            <div className="textCentered">
+              <h2 className="h2">Accuracy : </h2>
               {correct !== 0 ? (
-                <p className="has-text-info is-size-1">
+                <p className="textInfo">
                   {Math.round((correct / (correct + incorrect)) * 100)}%
                 </p>
               ) : (
-                <p className="has-text-info is-size-1">0%</p>
+                <p className="textInfo">0%</p>
               )}
             </div>
           </div>
         </div>
       )}
-
     </div>
   );
-
-    
-
-}
-
-
+};
